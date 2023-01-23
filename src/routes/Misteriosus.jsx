@@ -28,19 +28,17 @@ const Home = () => {
       getPosts();
     }, []);
 
-    // async function excluirLivro(id) {
-     // if (!confirm(`Tem certeza que deseja excluir o livro "${nome}"?`)) {
-     // } else {
-     //   fetch(`/ficcaocientifica${id}`, {
-      //    method: "DELETE",
-      //  }).then((result) => {
-      //    result.json().then((resp) => {
-      //      console.warn(resp);
-      //    });
-       // });
-     //   alert(`Livro "${nome}" excluído com sucesso.`);
-    //  }
-  //  }
+  const deleteLivro = async (id) => {
+
+    await blogFetch.delete(`/misteriosuspense/${id}`)
+      .then(
+        alert("Livro excluído com sucesso. Recarregue a página."),
+        navigate('/start')
+      )
+      .catch((error) => {
+        console.log(error)
+      })
+    } 
 
   return <div className="home">
     <h1>livros</h1>
@@ -52,7 +50,7 @@ const Home = () => {
           <p>{post.ano}</p>
           <p>{post.sinopse}</p>
           <img src={post.imagem}></img>
-          <button className="btn" onClick={() => deletePost()}>Excluir</button>
+          <button className="btn" onClick={() => deleteLivro(post.id)}>Excluir</button>
         </div>
       ))
     )}

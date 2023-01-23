@@ -42,6 +42,18 @@ const Home = () => {
     //  }
   //  }
 
+  const deleteLivro = async (id) => {
+
+    await blogFetch.delete(`/romance/${id}`)
+      .then(
+        alert("Livro excluído com sucesso. Recarregue a página."),
+        navigate('/start')
+      )
+      .catch((error) => {
+        console.log(error)
+      })
+    } 
+
   return <div className="home">
     <h1>livros</h1>
     {posts.length === 0 ? <img className="load" src="https://retchhh.files.wordpress.com/2015/03/loading1.gif"></img> : (
@@ -52,7 +64,7 @@ const Home = () => {
           <p>{post.ano}</p>
           <p>{post.sinopse}</p>
           <img src={post.imagem}></img>
-          <button className="btn" onClick={() => deletePost()}>Excluir</button>
+          <button className="btn" onClick={() => deleteLivro(post.id)}>Excluir</button>
         </div>
       ))
     )}
